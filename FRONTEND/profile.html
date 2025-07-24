@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Student Profile - CampusConnect</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    body {
+      background: #d0f0f6; /* soft teal background */
+      font-family: 'Nunito', sans-serif;
+      margin: 0;
+      color: #333;
+    }
+
+    .navbar {
+      background-color: #008080; /* teal navbar */
+    }
+
+    .navbar-brand {
+      font-weight: 700;
+      font-size: 1.7rem;
+      color: white !important;
+    }
+
+    .logout-btn {
+      color: white !important;
+      border-color: white !important;
+      font-weight: 700;
+      border-radius: 25px;
+      padding: 6px 20px;
+      transition: background-color 0.3s ease;
+      background: transparent;
+    }
+    .logout-btn:hover,
+    .logout-btn:focus {
+      background-color: #ff6600; /* bright orange on hover */
+      border-color: #ff6600 !important;
+      color: white !important;
+      outline: none;
+      box-shadow: 0 0 8px 3px rgba(255, 102, 0, 0.5);
+    }
+
+    .dashboard {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      width: 260px;
+      background: #fff;
+      box-shadow: 2px 0 8px rgba(0, 128, 128, 0.15);
+      padding: 2rem 1rem;
+      border-radius: 0 20px 20px 0;
+      text-align: center;
+    }
+
+    .profile-pic {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #008080;
+      margin: auto;
+      display: block;
+      box-shadow: 0 0 10px rgba(0, 128, 128, 0.3);
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+    .profile-pic:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 14px rgba(255, 102, 0, 0.7);
+    }
+
+    .student-details {
+      margin-top: 1rem;
+    }
+
+    .student-details h5 {
+      margin: 0;
+      color: #008080;
+      font-weight: 700;
+      font-size: 1.25rem;
+    }
+
+    .student-details p {
+      font-size: 0.95rem;
+      color: #555;
+      margin-bottom: 0.3rem;
+    }
+
+    .sidebar nav a {
+      color: #333;
+      display: block;
+      padding: 0.7rem 1.2rem;
+      border-radius: 10px;
+      text-decoration: none;
+      margin-top: 1rem;
+      font-weight: 600;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .sidebar nav a:hover,
+    .sidebar nav a:focus {
+      background-color: #ff6600;
+      color: white;
+      outline: none;
+      box-shadow: 0 0 8px 2px rgba(255, 102, 0, 0.7);
+    }
+
+    .content {
+      flex: 1;
+      padding: 2.5rem;
+      overflow-y: auto;
+    }
+
+    .card-box {
+      background: white;
+      padding: 22px;
+      border-radius: 16px;
+      box-shadow: 0 3px 14px rgba(0, 128, 128, 0.1);
+      margin-bottom: 25px;
+    }
+    .card-box h5 {
+      color: #008080;
+      margin-bottom: 1.2rem;
+      font-weight: 700;
+      font-size: 1.3rem;
+    }
+
+    label {
+      font-weight: 600;
+      color: #008080;
+    }
+
+    input[type="text"],
+    input[type="file"] {
+      width: 100%;
+      padding: 10px 14px;
+      margin-top: 6px;
+      margin-bottom: 18px;
+      border-radius: 8px;
+      border: 2px solid #ddd;
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+    }
+
+    input[type="text"]:focus,
+    input[type="file"]:focus {
+      border-color: #ff6600;
+      outline: none;
+    }
+
+    button.save-btn {
+      background-color: #ff6600;
+      color: white;
+      font-weight: 700;
+      border: none;
+      border-radius: 25px;
+      padding: 12px 0;
+      width: 100%;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    button.save-btn:hover,
+    button.save-btn:focus {
+      background-color: #e65c00;
+      box-shadow: 0 0 8px 3px rgba(255, 102, 0, 0.5);
+      outline: none;
+    }
+
+    .img-preview {
+      display: block;
+      max-width: 140px;
+      max-height: 140px;
+      margin: 0 auto 20px auto;
+      border-radius: 50%;
+      border: 3px solid #008080;
+      object-fit: cover;
+      box-shadow: 0 0 8px rgba(0, 128, 128, 0.4);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand px-4">
+    <a class="navbar-brand" href="#">🎓 CampusConnect</a>
+    <button id="logoutBtn" class="btn logout-btn ms-auto btn-sm">Logout</button>
+  </nav>
+
+  <div class="dashboard">
+    <!-- Sidebar -->
+    <aside class="sidebar" aria-label="Student Sidebar Navigation">
+      <img id="sidebarProfilePic" src="https://i.pravatar.cc/150?img=11" alt="Profile Picture" class="profile-pic" />
+      <div class="student-details">
+        <h5 id="sidebarName">Student Name</h5>
+        <p id="sidebarRoll">Roll No: 000000</p>
+      </div>
+      <nav>
+        <a href="studentdashboard.html" tabindex="0">🏠 Dashboard</a>
+        <a href="studentprofile.html" tabindex="0" aria-current="page">👤 Profile</a>
+        <a href="events.html" tabindex="0">📅 Events</a>
+        <a href="notes.html" tabindex="0">📚 Notes</a>
+        <a href="marks.html" tabindex="0">📝 Marks</a>
+        <a href="media.html" tabindex="0">🎥 Media</a>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="content" role="main">
+      <div class="card-box">
+        <h5>Update Your Profile</h5>
+        <form id="profileForm">
+          <label for="nameInput">Full Name</label>
+          <input type="text" id="nameInput" placeholder="Enter your full name" required />
+
+          <label for="rollInput">Roll Number</label>
+          <input type="text" id="rollInput" placeholder="Enter your roll number" required />
+
+          <label for="profilePicInput">Profile Picture</label>
+          <input type="file" id="profilePicInput" accept="image/*" />
+
+          <img id="imgPreview" class="img-preview" alt="Profile Picture Preview" src="https://i.pravatar.cc/150?img=11" />
+
+          <button type="submit" class="save-btn">Save Profile</button>
+        </form>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // Load data from localStorage
+    function loadProfile() {
+      const name = localStorage.getItem('studentName') || 'Student Name';
+      const roll = localStorage.getItem('studentRoll') || '000000';
+      const pic = localStorage.getItem('studentPic') || 'https://i.pravatar.cc/150?img=11';
+
+      document.getElementById('nameInput').value = name;
+      document.getElementById('rollInput').value = roll;
+      document.getElementById('imgPreview').src = pic;
+
+      // Sidebar update
+      document.getElementById('sidebarName').textContent = name;
+      document.getElementById('sidebarRoll').textContent = `Roll No: ${roll}`;
+      document.getElementById('sidebarProfilePic').src = pic;
+    }
+
+    // Preview image when selected
+    document.getElementById('profilePicInput').addEventListener('change', function(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          document.getElementById('imgPreview').src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    // Save profile data to localStorage
+    document.getElementById('profileForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById('nameInput').value.trim();
+      const roll = document.getElementById('rollInput').value.trim();
+      const imgSrc = document.getElementById('imgPreview').src;
+
+      if (!name || !roll) {
+        alert('Please fill in all required fields.');
+        return;
+      }
+
+      localStorage.setItem('studentName', name);
+      localStorage.setItem('studentRoll', roll);
+      localStorage.setItem('studentPic', imgSrc);
+
+      alert('Profile updated successfully!');
+
+      // Update sidebar info
+      document.getElementById('sidebarName').textContent = name;
+      document.getElementById('sidebarRoll').textContent = `Roll No: ${roll}`;
+      document.getElementById('sidebarProfilePic').src = imgSrc;
+    });
+
+    // Logout button functionality
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+      localStorage.clear();
+      window.location.href = 'login.html';
+    });
+
+    // Initial load
+    loadProfile();
+  </script>
+</body>
+</html>

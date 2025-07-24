@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin Upload - CampusConnect</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    body { background: #f8f9fa; }
+    .container { max-width: 600px; margin: 80px auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);}
+    .upload-title { text-align:center; font-weight:600; margin-bottom:20px; font-size:24px; }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div id="uploadTitle" class="upload-title">Upload File</div>
+
+  <form id="uploadForm">
+    <div class="mb-3">
+      <label for="titleInput" class="form-label">Title</label>
+      <input type="text" id="titleInput" class="form-control" placeholder="Enter file title" required />
+    </div>
+    <div class="mb-3">
+      <label for="fileInput" class="form-label">Select File</label>
+      <input type="file" id="fileInput" class="form-control" accept="image/*,video/*,.pdf" required />
+    </div>
+    <button type="submit" class="btn btn-primary w-100">Upload</button>
+  </form>
+
+  <div class="mt-3 text-center">
+    <a href="admin.html" class="btn btn-outline-secondary mt-2">⬅ Back to Admin Dashboard</a>
+  </div>
+  
+  <div id="message" class="mt-3 text-center"></div>
+</div>
+
+<script>
+  // Get type from URL query ?type=image or video or pdf
+  const params = new URLSearchParams(window.location.search);
+  const type = params.get("type") || "unknown";
+
+  const titleMap = {
+    image: "Upload Photo",
+    video: "Upload Video",
+    pdf: "Upload PDF Note"
+  };
+  document.getElementById("uploadTitle").innerText = titleMap[type] || "Upload File";
+
+  const form = document.getElementById("uploadForm");
+  const messageDiv = document.getElementById("message");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const title = document.getElementById("titleInput").value.trim();
+    const fileInput = document.getElementById("fileInput");
+    const file = fileInput.files[0];
+
+    if (!file) {
+      messageDiv.innerText = "Please select a file!";
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("fileType", type);
+    formData.append("file", file);
+
+    messageDiv.innerText = "Uploading...";
+
+    try {
+      const res = await fetch("/api/upload", {
+        method: "POST",
+        body: formData,
+      });
+      const data = await res.json();
+
+      if (res.ok) {
+        messageDiv.innerHTML = `<span class="text-success">Upload successful! ✅</span>`;
+        form.reset();
+      } else {
+        messageDiv.innerHTML = `<span class="text-danger">Error: ${data.error || 'Upload failed'}</span>`;
+      }
+    } catch (err) {
+      messageDiv.innerHTML = `<span class="text-danger">Error uploading file.</span>`;
+    }
+  });
+</script>
+
+</body>
+</html>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // Add any additional JavaScript functionality here if needed
+  document.addEventListener('DOMContentLoaded', function() {
+    console.log('Admin Upload Page Loaded');
+  });

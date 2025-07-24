@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Login - CampusConnect</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+  <style>
+    .admin-login-container {
+      max-width: 400px;
+      margin: 100px auto;
+      padding: 30px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      border-radius: 10px;
+      background-color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="admin-login-container">
+    <h2 class="text-center mb-4">Admin Login</h2>
+    <form id="adminLoginForm" novalidate>
+      <div class="mb-3">
+        <label for="adminEmail" class="form-label">Admin Email</label>
+        <input
+          type="email"
+          class="form-control"
+          id="adminEmail"
+          placeholder="admin@campusconnect.com"
+          required
+          autocomplete="username"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="adminPassword" class="form-label">Password</label>
+        <input
+          type="password"
+          class="form-control"
+          id="adminPassword"
+          placeholder="Enter password"
+          required
+          autocomplete="current-password"
+        />
+      </div>
+      <div class="d-grid">
+        <button type="submit" class="btn btn-dark">Login as Admin</button>
+      </div>
+      <div id="errorMsg" class="mt-3 text-danger text-center"></div>
+    </form>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.getElementById('adminLoginForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const email = document.getElementById('adminEmail').value.trim();
+      const password = document.getElementById('adminPassword').value.trim();
+      const errorMsg = document.getElementById('errorMsg');
+
+      // Simple hardcoded admin credentials for demo
+      const adminEmail = "admin@campusconnect.com";
+      const adminPassword = "Admin1234";
+
+      if(email === adminEmail && password === adminPassword) {
+        // Set admin flag in localStorage
+        localStorage.setItem('isAdmin', 'true');
+        // Redirect to admin dashboard
+        window.location.href = 'admin.html'; // Adjust filename if needed
+      } else {
+        errorMsg.textContent = "Invalid email or password.";
+      }
+    });
+  </script>
+</body>
+</html>
+<script>
+    // Load profile data from localStorage on page load     
+      alert('Profile saved successfully!');
+      loadProfile(); // Refresh profile data
+    });
+    });
+
+    // Initial load
+    loadProfile();
+  </script>

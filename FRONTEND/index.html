@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CampusConnect Landing</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background-color: #f0f4f8; /* soft off-white */
+      color: #333;
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 40px;
+      background-color: #0077b6; /* fresh blue */
+      box-shadow: 0 3px 10px rgba(0,119,182,0.3);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      font-weight: 700;
+      font-size: 1.7rem;
+      color: #fff;
+      letter-spacing: 1.1px;
+      user-select: none;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 28px;
+      align-items: center;
+    }
+
+    nav a {
+      color: #f0f4f8;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.05rem;
+      transition: color 0.25s ease;
+    }
+
+    nav a:hover,
+    nav a:focus {
+      color: #ff6f61; /* warm coral */
+      outline: none;
+    }
+
+    .btn-login {
+      background-color: #ff6f61; /* coral */
+      border-radius: 32px;
+      padding: 10px 26px;
+      font-weight: 700;
+      font-size: 1rem;
+      border: none;
+      cursor: pointer;
+      color: #fff;
+      transition: background-color 0.3s ease;
+      user-select: none;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-login:hover,
+    .btn-login:focus {
+      background-color: #e2574a; /* darker coral */
+      outline: none;
+    }
+
+    main {
+      display: flex;
+      padding: 80px 40px;
+      max-width: 1200px;
+      margin: auto;
+      gap: 50px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .left {
+      flex: 1 1 400px;
+      max-width: 600px;
+    }
+
+    .left small {
+      font-size: 0.95rem;
+      color: #0077b6;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 1.2rem;
+      display: inline-block;
+      user-select: none;
+    }
+
+    .left h1 {
+      font-size: 3.4rem;
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 1.25rem;
+      color: #222;
+    }
+
+    .highlight {
+      color: #ff6f61;
+    }
+
+    .left p {
+      color: #555;
+      font-size: 1.15rem;
+      margin-bottom: 2rem;
+      max-width: 480px;
+      line-height: 1.4;
+      user-select: none;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 22px;
+      margin-bottom: 2rem;
+    }
+
+    .btn-primary, .btn-outline {
+      font-weight: 700;
+      font-size: 1.1rem;
+      padding: 16px 36px;
+      border-radius: 32px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 2.5px solid transparent;
+      display: inline-block;
+      text-align: center;
+      user-select: none;
+      min-width: 150px;
+      text-decoration: none;
+      line-height: 1;
+    }
+
+    .btn-primary {
+      background-color: #0077b6;
+      color: white;
+      border-color: #0077b6;
+      box-shadow: 0 4px 12px rgba(0,119,182,0.4);
+    }
+
+    .btn-primary:hover,
+    .btn-primary:focus {
+      background-color: #005f87;
+      border-color: #005f87;
+      outline: none;
+      box-shadow: 0 6px 18px rgba(0,95,135,0.6);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: #0077b6;
+      border-color: #0077b6;
+      box-shadow: none;
+    }
+
+    .btn-outline:hover,
+    .btn-outline:focus {
+      background: #0077b6;
+      color: white;
+      outline: none;
+      box-shadow: 0 6px 18px rgba(0,119,182,0.6);
+    }
+
+    .avatars {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 12px;
+      user-select: none;
+    }
+
+    .avatars img {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 2px solid #fff;
+      object-fit: cover;
+      box-shadow: 0 0 6px rgba(0,119,182,0.7);
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+
+    .avatars img:hover,
+    .avatars img:focus {
+      transform: scale(1.15);
+      outline: none;
+      box-shadow: 0 0 12px rgba(255,111,97,0.8);
+    }
+
+    .stats {
+      font-weight: 700;
+      color: #0077b6;
+      font-size: 1rem;
+      user-select: none;
+    }
+
+    .right {
+      flex: 1 1 350px;
+      max-width: 460px;
+      position: relative;
+      user-select: none;
+    }
+
+    .right img {
+      width: 100%;
+      border-radius: 36px 0 36px 36px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+      object-fit: cover;
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+
+    .right img:hover,
+    .right img:focus {
+      transform: scale(1.05);
+      outline: none;
+      box-shadow: 0 12px 36px rgba(0,119,182,0.4);
+    }
+
+    .badge {
+      position: absolute;
+      background: white;
+      color: #0077b6;
+      border-radius: 20px;
+      padding: 12px 18px;
+      font-weight: 700;
+      box-shadow: 0 4px 12px rgba(0,119,182,0.25);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1rem;
+      user-select: none;
+      white-space: nowrap;
+    }
+
+    .badge-icon {
+      background: #0077b6;
+      border-radius: 50%;
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.2rem;
+      font-weight: 900;
+      box-shadow: 0 0 8px rgba(0,119,182,0.7);
+    }
+
+    .badge-students {
+      top: 18%;
+      left: -14%;
+    }
+
+    .badge-courses {
+      bottom: 10%;
+      right: -16%;
+    }
+
+    @media (max-width: 900px) {
+      main {
+        flex-direction: column;
+        gap: 40px;
+        padding: 40px 20px;
+      }
+
+      .right {
+        max-width: 100%;
+      }
+
+      .badge-students {
+        top: 10%;
+        left: 5%;
+      }
+
+      .badge-courses {
+        bottom: 12%;
+        right: 5%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">CampusConnect</div>
+    <nav>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Events</a></li>
+        <li><a href="#">Resources</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </nav>
+    <a href="register.html" class="btn-login" role="button" tabindex="0">Login / Register</a>
+  </header>
+
+  <main>
+    <section class="left">
+      <small>Online Campus Connect</small>
+      <h1>
+        <span class="highlight">Connecting</span> Students and <br />Building a Brighter Future
+      </h1>
+      <p>
+        Stay updated with campus events, clubs, activities, and opportunities to enhance your college life.
+      </p>
+
+      <div class="buttons">
+        <a href="register.html" class="btn-primary" tabindex="0">Create Account</a>
+        <a href="contact.html" class="btn-outline" tabindex="0">Contact Us</a>
+      </div>
+
+      <div class="avatars" aria-label="Happy students">
+        <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Student 1" tabindex="0" />
+        <img src="https://randomuser.me/api/portraits/men/72.jpg" alt="Student 2" tabindex="0" />
+        <img src="https://randomuser.me/api/portraits/women/21.jpg" alt="Student 3" tabindex="0" />
+        <span class="stats">24k+ Happy Students</span>
+      </div>
+    </section>
+
+    <section class="right" aria-label="Students in class photo">
+      <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=800&q=80" alt="Students in class" tabindex="0" />
+      <div class="badge badge-students" aria-label="Total students">
+        <div class="badge-icon" aria-hidden="true">🎓</div> 28k Total Students
+      </div>
+      <div class="badge badge-courses" aria-label="Total courses">
+        <div class="badge-icon" aria-hidden="true">📚</div> 529+ Total Courses
+      </div>
+    </section>
+  </main>
+</body>
+</html>

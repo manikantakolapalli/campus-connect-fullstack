@@ -1,0 +1,31 @@
+body {
+  background: linear-gradient(to right, #2c3e50, #3498db);
+  font-family: 'Segoe UI', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.admin-login-container {
+  background-color: rgba(255, 255, 255, 0.95);
+  padding: 40px;
+  border-radius: 15px;
+  width: 350px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+}
+
+h2 {
+  color: #2c3e50;
+}
+
+.btn-dark {
+  background: linear-gradient(to right, #8e44ad, #3498db);
+  border: none;
+  color: #fff;
+  font-weight: bold;
+}
+
+.btn-dark:hover {
+  background: linear-gradient(to left, #8e44ad, #3498db);
+}

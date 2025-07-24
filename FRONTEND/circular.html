@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Curricular Events - CampusConnect</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="circular.css" />
+</head>
+<body>
+  <div class="container mt-5">
+    <h2 class="text-center text-primary mb-4">📘 Curricular Events</h2>
+
+    <div class="row g-4">
+      <!-- Sample Event -->
+      <div class="col-md-4">
+        <div class="card shadow-lg h-100">
+          <div class="card-body text-center">
+            <h5 class="card-title">AI & ML Workshop</h5>
+            <p class="card-text">Join our hands-on workshop on Artificial Intelligence.</p>
+            <button class="btn btn-success register-btn" data-event="AI & ML Workshop">Register & Participate</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Add more events like this -->
+      <div class="col-md-4">
+        <div class="card shadow-lg h-100">
+          <div class="card-body text-center">
+            <h5 class="card-title">Tech Talk: Cloud Computing</h5>
+            <p class="card-text">Learn about AWS, Azure, and future of cloud.</p>
+            <button class="btn btn-success register-btn" data-event="Tech Talk: Cloud Computing">Register & Participate</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Script -->
+  <script>
+    const buttons = document.querySelectorAll(".register-btn");
+    buttons.forEach(button => {
+      button.addEventListener("click", () => {
+        const eventName = button.getAttribute("data-event");
+
+        // Simulate registration — Replace this with actual backend call in Django
+        alert(`You have registered for: ${eventName}`);
+
+        // Optional: Store in localStorage (temporary)
+        const registered = JSON.parse(localStorage.getItem("registeredEvents") || "[]");
+        registered.push(eventName);
+        localStorage.setItem("registeredEvents", JSON.stringify(registered));
+      });
+    });
+  </script>
+</body>
+</html>

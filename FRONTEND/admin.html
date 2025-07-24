@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard - CampusConnect</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+
+  <header class="admin-header text-center">
+    <h1>👨‍💻 CampusConnect Admin Dashboard</h1>
+    <p>Manage Events, Media, and Campus Activities</p>
+  </header>
+
+  <main class="container my-5">
+    <div class="row g-4">
+      <!-- Manage Events -->
+      <div class="col-md-6 col-lg-4">
+        <div class="card admin-card text-center p-4 shadow">
+          <div class="card-body">
+            <div class="card-icon mb-3 text-primary">📅</div>
+            <h5 class="card-title fw-bold">Manage Events</h5>
+            <p class="card-text">Add, edit, or delete college events.</p>
+            <a href="events.html" class="gradient-btn">Go to Events</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Upload Photos -->
+      <div class="col-md-6 col-lg-4">
+        <div class="card admin-card text-center p-4 shadow">
+          <div class="card-body">
+            <div class="card-icon mb-3 text-success">📷</div>
+            <h5 class="card-title fw-bold">Upload Photos</h5>
+            <p class="card-text">Upload event and activity photos.</p>
+            <a href="admin_upload.html?type=image" class="gradient-btn">Upload Photos</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Upload Videos -->
+      <div class="col-md-6 col-lg-4">
+        <div class="card admin-card text-center p-4 shadow">
+          <div class="card-body">
+            <div class="card-icon mb-3 text-danger">🎬</div>
+            <h5 class="card-title fw-bold">Upload Videos</h5>
+            <p class="card-text">Add videos of workshops or fests.</p>
+            <a href="admin_upload.html?type=video" class="gradient-btn">Upload Videos</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Upload Notes -->
+      <div class="col-md-6 col-lg-4">
+        <div class="card admin-card text-center p-4 shadow">
+          <div class="card-body">
+            <div class="card-icon mb-3 text-warning">📄</div>
+            <h5 class="card-title fw-bold">Upload Notes</h5>
+            <p class="card-text">Upload PDF notes for students.</p>
+            <a href="admin_upload.html?type=pdf" class="gradient-btn">Upload Notes</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="text-center mt-5">
+    <p>&copy; 2025 CampusConnect. All rights reserved.</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Check admin status from localStorage (or any auth logic you have)
+      const isAdmin = localStorage.getItem('isAdmin') === 'true';
+
+      if (!isAdmin) {
+        alert('Access denied! Admins only.');
+        window.location.href = 'login.html';  // Redirect non-admin users to login
+        return;
+      }
+
+      console.log('Admin Dashboard Loaded');
+    });
+  </script>
+</body>
+</html>

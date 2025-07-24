@@ -1,0 +1,27 @@
+/* General */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(to right, #e0f7fa, #f1f8e9);
+}
+
+.bg-gradient {
+  background: linear-gradient(to right, #0077b6, #00b4d8);
+}
+
+.welcome-section {
+  background: linear-gradient(135deg, #00b4d8, #90e0ef);
+  border-bottom: 5px solid #0077b6;
+}
+
+.card {
+  transition: transform 0.3s ease;
+  border-radius: 15px;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+footer {
+  font-size: 14px;
+}

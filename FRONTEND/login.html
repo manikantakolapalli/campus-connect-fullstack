@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CampusConnect - Login</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    body { 
+      background: #d0f0f6; /* soft teal background */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      font-family: 'Nunito', sans-serif;
+      color: #333;
+    }
+    .login-box {
+      max-width: 400px;
+      background: #fff;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0, 128, 128, 0.2);
+      border: 2px solid #008080; /* teal border */
+      width: 100%;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #008080; /* teal */
+      font-weight: 700;
+      font-size: 28px;
+    }
+    label {
+      font-weight: 600;
+      color: #555;
+    }
+    .form-control:focus {
+      border-color: #ff6600 !important; /* bright orange focus */
+      box-shadow: 0 0 8px rgba(255, 102, 0, 0.4) !important;
+    }
+    .btn-login {
+      background-color: #ff6600; /* bright orange */
+      color: #fff;
+      font-weight: 700;
+      border-radius: 25px;
+      padding: 12px 0;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      border: none;
+    }
+    .btn-login:hover,
+    .btn-login:focus {
+      background-color: #e65c00; /* darker orange */
+      box-shadow: 0 0 10px 3px rgba(255, 102, 0, 0.6);
+      outline: none;
+    }
+    a.text-info {
+      color: #008080 !important; /* teal */
+      font-weight: 600;
+      text-decoration: none;
+      transition: color 0.3s ease;
+      cursor: pointer;
+    }
+    a.text-info:hover {
+      color: #ff6600 !important; /* bright orange */
+      text-decoration: underline;
+    }
+    .forgot-password {
+      text-align: right;
+      margin-top: -15px;
+      margin-bottom: 20px;
+      font-size: 0.9rem;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="login-box shadow-lg">
+    <h2>🌟 CampusConnect Login</h2>
+    <form id="loginForm" novalidate>
+      <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input 
+          type="text" 
+          class="form-control form-control-lg" 
+          id="username" 
+          placeholder="Enter your username" 
+          required 
+          autocomplete="username"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input 
+          type="password" 
+          class="form-control form-control-lg" 
+          id="password" 
+          placeholder="Enter your password" 
+          required 
+          autocomplete="current-password"
+        />
+      </div>
+      <div class="forgot-password">
+        <a id="forgotPasswordLink" class="text-info">Forgot Password?</a>
+      </div>
+      <div class="d-grid mb-3">
+        <button type="submit" class="btn btn-login">🚀 Login</button>
+      </div>
+      <p class="text-center">
+        Don’t have an account? 
+        <a href="register.html" class="text-info">Register</a>
+      </p>
+    </form>
+  </div>
+
+  <!-- Forgot Password Modal -->
+  <div class="modal fade" id="forgotPasswordModal" tabindex="-1" aria-labelledby="forgotPasswordModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <form id="forgotPasswordForm" class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="forgotPasswordModalLabel">Reset Password</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Enter your email address to receive password reset instructions.</p>
+          <input type="email" id="resetEmail" class="form-control" placeholder="Your email" required />
+          <div id="resetError" class="text-danger mt-2" style="display:none;"></div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Send Reset Link</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value.trim();
+
+      if (!username || !password) {
+        alert('Please fill in all fields.');
+        return;
+      }
+
+      try {
+        const response = await fetch('/api/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          localStorage.setItem('token', data.token);
+          localStorage.setItem('username', username);
+          alert('Login successful! Redirecting to dashboard...');
+          window.location.href = 'studentdashboard.html';
+        } else {
+          alert(data.error || 'Login failed. Please check your username and password.');
+        }
+      } catch (error) {
+        alert('Server error. Please try again later.');
+        console.error('Login error:', error);
+      }
+    });
+
+    // Bootstrap modal instance
+    const forgotPasswordModal = new bootstrap.Modal(document.getElementById('forgotPasswordModal'));
+
+    document.getElementById('forgotPasswordLink').addEventListener('click', () => {
+      document.getElementById('resetEmail').value = '';
+      document.getElementById('resetError').style.display = 'none';
+      forgotPasswordModal.show();
+    });
+
+    document.getElementById('forgotPasswordForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = document.getElementById('resetEmail').value.trim();
+      const resetError = document.getElementById('resetError');
+
+      if (!email) {
+        resetError.textContent = 'Please enter your email address.';
+        resetError.style.display = 'block';
+        return;
+      }
+
+      // Basic email format validation
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(email)) {
+        resetError.textContent = 'Please enter a valid email address.';
+        resetError.style.display = 'block';
+        return;
+      }
+
+      resetError.style.display = 'none';
+      // TODO: Call your API for password reset here
+
+      alert(`If an account with email "${email}" exists, a password reset link has been sent.`);
+      forgotPasswordModal.hide();
+    });
+  </script>
+
+</body>
+</html>

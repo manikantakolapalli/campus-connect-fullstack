@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "mongoose": "^8.16.4",
+    "nodemon": "^3.1.10",
+    "sqlite3": "^5.1.7"
+  }
+}

@@ -1,0 +1,42 @@
+body {
+  background: #f5f7fa;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.admin-header {
+  background: linear-gradient(to right, #1e3c72, #2a5298);
+  color: white;
+  padding: 20px;
+  border-radius: 0 0 15px 15px;
+}
+
+.admin-card {
+  border-radius: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background-color: #fff;
+}
+
+.admin-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.card-icon {
+  font-size: 40px;
+}
+
+.gradient-btn {
+  background: linear-gradient(to right, #00c6ff, #0072ff);
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  padding: 10px 20px;
+  transition: 0.3s ease;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.gradient-btn:hover {
+  background: linear-gradient(to right, #0072ff, #00c6ff);
+  transform: translateY(-2px);
+}
